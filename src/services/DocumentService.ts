@@ -49,24 +49,34 @@ export class DocumentService {
     }
 
     try {
-      // Fetch main documentation pages
+      // Fetch main documentation pages based on actual CROSS docs structure
       const mainPages = [
         '/docs/dev_getting-started',
-        '/docs/dev_smart-contract_solidity',
-        '/docs/dev_smart-contract_erc-20-interface',
-        '/docs/dev_smart-contract_deploy-contract_foundry',
-        '/docs/dev_smart-contract_deploy-contract_hardhat',
-        '/docs/dev_chain_transactions',
-        '/docs/dev_chain_fee-delegation',
-        '/docs/dev_chain_checkpoint',
-        '/docs/dev_chain_crossx-dex',
-        '/docs/dev_sdk-js_installation',
-        '/docs/dev_sdk-js_hooks',
-        '/docs/dev_sdk-js_controllers',
-        '/docs/dev_sdk-js_connection',
-        '/docs/dev_sdk-js_token-transfer',
-        '/docs/dev_sdk-unity_installation',
+        '/docs/sc_solidity',
+        '/docs/sc_erc20-interface',
+        '/docs/sc_sample-erc20-contract',
+        '/docs/sc_sample-erc721-contract',
+        '/docs/sc_sample-erc1155-contract',
+        '/docs/sc_deploy-foundry',
+        '/docs/sc_deploy-hardhat',
+        '/docs/ch_transactions',
+        '/docs/ch_fee-delegation',
+        '/docs/ch_fee-delegation-tx-type',
+        '/docs/ch_checkpoint',
+        '/docs/ch_crossx-dex',
+        '/docs/sdkjs_installation',
+        '/docs/sdkjs_hooks',
+        '/docs/sdkjs_controllers',
+        '/docs/sdkjs_connection',
+        '/docs/sdkjs_token-transfer',
+        '/docs/sdkjs_signature',
+        '/docs/sdkjs_custom-data',
+        '/docs/sdkjs_balance',
+        '/docs/sdkjs_version-history',
+        '/docs/sdkuni_installation',
+        '/docs/testnet-faucet',
         '/docs/crossx_getting-started',
+        '/docs/crossx_create-wallet',
         '/docs/crossx_bridge',
         '/docs/crossx_dex',
       ];
@@ -138,12 +148,12 @@ export class DocumentService {
   }
 
   private getCategoryFromPath(path: string): string {
-    if (path.includes('smart-contract')) return 'smart-contract';
-    if (path.includes('sdk-js')) return 'sdk-js';
-    if (path.includes('sdk-unity')) return 'sdk-unity';
-    if (path.includes('chain')) return 'chain';
-    if (path.includes('crossx')) return 'crossx';
-    if (path.includes('getting-started')) return 'getting-started';
+    if (path.includes('sc_')) return 'smart-contract';
+    if (path.includes('sdkjs_')) return 'sdk-js';
+    if (path.includes('sdkuni_')) return 'sdk-unity';
+    if (path.includes('ch_')) return 'chain';
+    if (path.includes('crossx_')) return 'crossx';
+    if (path.includes('getting-started') || path.includes('testnet-faucet')) return 'getting-started';
     return 'general';
   }
 

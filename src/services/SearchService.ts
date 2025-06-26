@@ -34,7 +34,7 @@ export class SearchService {
     try {
       const documents = await this.documentService.getAllDocuments();
       
-      const fuseOptions: Fuse.IFuseOptions<CrossDocument> = {
+      const fuseOptions = {
         keys: [
           { name: 'title', weight: 0.4 },
           { name: 'content', weight: 0.6 },
@@ -82,7 +82,7 @@ export class SearchService {
     return results.slice(0, limit);
   }
 
-  private extractHighlights(result: Fuse.FuseResult<CrossDocument>, query: string): string[] {
+  private extractHighlights(result: any, query: string): string[] {
     const highlights: string[] = [];
     
     if (result.matches) {
