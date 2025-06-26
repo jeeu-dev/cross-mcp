@@ -50,64 +50,35 @@ export class DocumentService {
     }
 
     try {
-      // Fetch main documentation pages based on actual CROSS docs structure
+      // Fetch main documentation pages - ONLY VERIFIED VALID URLs
       const mainPages = [
-        // Getting Started
+        // ✅ Getting Started (verified)
         '/docs/dev_getting-started',
         '/docs/dev_testnet-faucet',
         
-        // Smart Contract Development
+        // ✅ Smart Contract Development (verified)
         '/docs/sc_solidity',
-        '/docs/sc_erc20-interface',
         '/docs/sc_sample-erc20-contract',
         '/docs/sc_sample-erc721-contract',
         '/docs/sc_sample-erc1155-contract',
-        '/docs/sc_deploy-foundry',
-        '/docs/sc_deploy-hardhat',
         
-        // Chain Information
-        '/docs/ch_transactions',
+        // ✅ Chain Information (verified)
         '/docs/ch_fee-delegation',
-        '/docs/ch_fee-delegation-tx-type',
         '/docs/ch_checkpoint',
         
-        // JavaScript SDK (가장 중요한 실용 정보)
+        // ✅ JavaScript SDK (verified - 가장 중요한 실용 정보)
         '/docs/sdkjs_installation',      // ⭐ 핵심: SDK 설치 가이드
         '/docs/sdkjs_hooks',
         '/docs/sdkjs_controllers',
         '/docs/sdkjs_connection',
         '/docs/sdkjs_token-transfer',
         '/docs/sdkjs_signature',
-        '/docs/sdkjs_custom-data',
         '/docs/sdkjs_balance',
-        '/docs/sdkjs_connect-design-guide',
         '/docs/sdkjs_version-history',
         
-        // Unity SDK
-        '/docs/sdkuni_installation',
-        '/docs/sdkuni_connection',
-        '/docs/sdkuni_signature',
-        '/docs/sdkuni_token-transfer',
-        '/docs/sdkuni_custom-data',
-        '/docs/sdkuni_balance',
-        
-        // Node Operations
-        '/docs/node_endpoint-node',
-        '/docs/node_system-requirements',
-        '/docs/node_installation',
-        '/docs/node_configuration',
-        '/docs/node_rpc-endpoint',
-        '/docs/node_json-rpc',
-        
-        // CROSSx Platform
-        '/docs/crossx_getting-started',
+        // ✅ CROSSx Platform (verified)
+        '/docs/crossx',
         '/docs/crossx_create-wallet',
-        '/docs/crossx_account-security',
-        '/docs/crossx_bridge',
-        '/docs/crossx_dex',
-        '/docs/crossx_main-service',
-        '/docs/crossx_order-system',
-        '/docs/crossx_trading-fee',
       ];
 
       for (const path of mainPages) {
