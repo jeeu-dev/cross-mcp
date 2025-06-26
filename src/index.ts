@@ -51,7 +51,7 @@ class CrossMCPServer {
                 category: {
                   type: 'string',
                   description: 'Document category (smart-contract, sdk, chain, etc.)',
-                  enum: ['smart-contract', 'sdk-js', 'sdk-unity', 'chain', 'crossx', 'all'],
+                  enum: ['smart-contract', 'sdk-js', 'sdk-unity', 'chain', 'crossx', 'github', 'all'],
                 },
                 limit: {
                   type: 'number',
@@ -91,6 +91,26 @@ class CrossMCPServer {
               },
             },
           },
+          {
+            name: 'get-github-resources',
+            description: 'Get CROSS GitHub repositories and example code',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                type: {
+                  type: 'string',
+                  description: 'Type of GitHub resource to retrieve',
+                  enum: ['sdk', 'examples', 'all'],
+                  default: 'all',
+                },
+                includeCode: {
+                  type: 'boolean',
+                  description: 'Include code examples and README content',
+                  default: true,
+                },
+              },
+            },
+          },
         ],
       };
     });
@@ -107,6 +127,8 @@ class CrossMCPServer {
             return await this.handleDocumentById(args);
           case 'get-testnet-info':
             return await this.handleGetTestnetInfo(args);
+          case 'get-github-resources':
+            return await this.handleGetGitHubResources(args);
           default:
             throw new Error(`Unknown tool: ${name}`);
         }
@@ -164,6 +186,40 @@ class CrossMCPServer {
         {
           type: 'text',
           text: JSON.stringify(testnetInfo, null, 2),
+        },
+      ],
+    };
+  }
+
+  private async handleGetGitHubResources(args: any) {
+    const { type = 'all', includeCode = true } = args;
+    
+    const documents = await this.documentService.getAllDocuments();
+    
+    let githubResources = documents.filter(doc => doc.category === 'github');
+    
+    if (type === 'sdk') {
+      githubResources = githubResources.filter(doc => 
+        doc.id.includes('cross-sdk-js') && !doc.id.includes('sample')
+      );
+    } else if (type === 'examples') {
+      githubResources = githubResources.filter(doc => 
+        doc.type === 'example' || doc.id.includes('sample')
+      );
+    }
+    
+    if (!includeCode) {
+      githubResources = githubResources.map(doc => ({
+        ...doc,
+        content: doc.content.substring(0, 500) + '...' // Truncate content
+      }));
+    }
+    
+    return {
+      content: [
+        {
+          type: 'text',
+          text: JSON.stringify(githubResources, null, 2),
         },
       ],
     };

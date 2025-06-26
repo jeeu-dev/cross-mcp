@@ -131,6 +131,11 @@ export class SearchService {
       'deployment',
       'transactions',
       'getting started',
+      'GitHub examples',
+      'SDK examples',
+      'sample code',
+      'repository',
+      'cross-sdk-js',
     ];
   }
 

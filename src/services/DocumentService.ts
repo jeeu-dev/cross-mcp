@@ -8,6 +8,7 @@ export interface CrossDocument {
   url: string;
   category: string;
   lastModified?: string;
+  type?: 'documentation' | 'github' | 'example';
 }
 
 export interface TestnetInfo {
@@ -91,6 +92,9 @@ export class DocumentService {
           console.error(`Failed to fetch document ${path}:`, error);
         }
       }
+
+      // Fetch GitHub repositories content
+      await this.fetchGitHubRepositories();
 
       this.lastCacheUpdate = Date.now();
     } catch (error) {
@@ -218,5 +222,81 @@ export class DocumentService {
     }
 
     return testnetInfo;
+  }
+
+  private async fetchGitHubRepositories(): Promise<void> {
+    const repositories = [
+      {
+        owner: 'to-nexus',
+        repo: 'cross-sdk-js',
+        files: ['readme.md', 'package.json']
+      },
+      {
+        owner: 'to-nexus',
+        repo: 'cross-sdk-js-sample',
+        files: ['README.md', 'package.json']
+      }
+    ];
+
+    for (const repository of repositories) {
+      try {
+        await this.fetchGitHubRepository(repository.owner, repository.repo, repository.files);
+      } catch (error) {
+        console.error(`Failed to fetch GitHub repository ${repository.owner}/${repository.repo}:`, error);
+      }
+    }
+  }
+
+  private async fetchGitHubRepository(owner: string, repo: string, files: string[]): Promise<void> {
+    const baseUrl = `https://api.github.com/repos/${owner}/${repo}`;
+    
+    try {
+      // Fetch repository info
+      const repoResponse = await axios.get(baseUrl);
+      const repoInfo = repoResponse.data;
+
+      // Fetch each specified file
+      for (const fileName of files) {
+        try {
+          const fileUrl = `${baseUrl}/contents/${fileName}`;
+          const fileResponse = await axios.get(fileUrl);
+          
+          if (fileResponse.data.content) {
+            // Decode base64 content
+            const content = Buffer.from(fileResponse.data.content, 'base64').toString('utf-8');
+            
+            const document: CrossDocument = {
+              id: `github_${owner}_${repo}_${fileName.replace(/\./g, '_')}`,
+              title: `${owner}/${repo} - ${fileName}`,
+              content: content,
+              url: `https://github.com/${owner}/${repo}/blob/main/${fileName}`,
+              category: 'github',
+              type: repo.includes('sample') ? 'example' : 'github',
+              lastModified: fileResponse.data.sha
+            };
+
+            this.documentsCache.set(document.id, document);
+          }
+        } catch (fileError) {
+          console.error(`Failed to fetch file ${fileName} from ${owner}/${repo}:`, fileError);
+        }
+      }
+
+      // Also create a summary document for the repository
+      const summaryDocument: CrossDocument = {
+        id: `github_${owner}_${repo}_summary`,
+        title: `${owner}/${repo} Repository`,
+        content: `Repository: ${repoInfo.name}\nDescription: ${repoInfo.description || 'No description'}\nStars: ${repoInfo.stargazers_count}\nLanguage: ${repoInfo.language}\nLicense: ${repoInfo.license?.name || 'No license'}\nURL: ${repoInfo.html_url}`,
+        url: repoInfo.html_url,
+        category: 'github',
+        type: repo.includes('sample') ? 'example' : 'github',
+        lastModified: repoInfo.updated_at
+      };
+
+      this.documentsCache.set(summaryDocument.id, summaryDocument);
+
+    } catch (error) {
+      console.error(`Error fetching GitHub repository ${owner}/${repo}:`, error);
+    }
   }
 } 
