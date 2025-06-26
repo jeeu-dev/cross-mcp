@@ -225,6 +225,27 @@ export class SearchService {
       'chain id',
       'network info',
       
+      // Complete Implementation Guide
+      'complete implementation',
+      'production ready',
+      'copy paste ready',
+      'ready to use',
+      'full example',
+      'complete guide',
+      'step by step',
+      'copy and paste',
+      'working example',
+      'complete code',
+      'full integration',
+      'production code',
+      'no simulation',
+      'real implementation',
+      'typescript example',
+      'react component',
+      'wallet manager',
+      'complete wallet',
+      'full wallet integration',
+      
       // Blockchain
       'testnet faucet',
       'fee delegation',
