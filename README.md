@@ -1,6 +1,6 @@
-# CROSS MCP Server
+# TCROSS MCP Server
 
-CROSS Blockchain Integration Guide MCP Server - AI 도구를 통해 CROSS 블록체인 문서에 쉽게 접근할 수 있도록 도와주는 Model Context Protocol 서버입니다.
+TCROSS Blockchain Integration Guide MCP Server - AI 도구를 통해 CROSS 블록체인 문서에 쉽게 접근할 수 있도록 도와주는 Model Context Protocol 서버입니다.
 
 ## 📋 개요
 
@@ -17,7 +17,7 @@ AI 도구의 MCP 설정에 다음 JSON을 추가하세요:
   "mcpServers": {
     "cross-integration-guide": {
       "command": "npx",
-      "args": ["-y", "@jeeu-dev/cross-mcp@latest"]
+      "args": ["-y", "@jeeu-dev/tcross-mcp@latest"]
     }
   }
 }
@@ -27,11 +27,11 @@ AI 도구의 MCP 설정에 다음 JSON을 추가하세요:
 
 ```bash
 # 패키지 설치
-npm install -g @cross/integration-guide-mcp
+npm install -g @jeeu-dev/tcross-mcp
 
 # 또는 로컬 개발용
-git clone https://github.com/cross-developers/cross-mcp.git
-cd cross-mcp
+git clone https://github.com/jeeu-dev/tcross-mcp.git
+cd tcross-mcp
 npm install
 npm run build
 ```
@@ -44,7 +44,7 @@ npm run build
 2. `~/.cursor/mcp.json` 파일에 위의 JSON 설정 추가
 3. Cursor 재시작
 
-[Cursor에서 바로 연결하기](cursor://settings/mcp?config=%7B%22mcpServers%22%3A%7B%22cross-integration-guide%22%3A%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40cross%2Fintegration-guide-mcp%40latest%22%5D%7D%7D%7D)
+[Cursor에서 바로 연결하기](cursor://settings/mcp?config=%7B%22mcpServers%22%3A%7B%22tcross-integration-guide%22%3A%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40jeeu-dev%2Ftcross-mcp%40latest%22%5D%7D%7D%7D)
 
 ### VS Code
 
@@ -140,8 +140,8 @@ CROSS GitHub 저장소와 예시 코드를 검색합니다.
 
 ```bash
 # 저장소 클론
-git clone https://github.com/cross-developers/cross-mcp.git
-cd cross-mcp
+git clone https://github.com/jeeu-dev/tcross-mcp.git
+cd tcross-mcp
 
 # 의존성 설치
 npm install
@@ -159,7 +159,7 @@ npm test
 ### 프로젝트 구조
 
 ```
-cross-mcp/
+tcross-mcp/
 ├── src/
 │   ├── index.ts              # MCP 서버 메인 엔트리포인트
 │   ├── services/

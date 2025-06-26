@@ -2,7 +2,7 @@
   "mcpServers": {
     "cross-integration-guide": {
       "command": "npx",
-      "args": ["-y", "@jeeu-dev/cross-mcp@latest"]
+      "args": ["-y", "@jeeu-dev/tcross-mcp@latest"]
     }
   }
 } 
