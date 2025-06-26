@@ -17,7 +17,7 @@ AI 도구의 MCP 설정에 다음 JSON을 추가하세요:
   "mcpServers": {
     "cross-integration-guide": {
       "command": "npx",
-      "args": ["-y", "@jeeu-dev/tcross-mcp@latest"]
+      "args": ["-y", "tcross-mcp@latest"]
     }
   }
 }
@@ -27,7 +27,7 @@ AI 도구의 MCP 설정에 다음 JSON을 추가하세요:
 
 ```bash
 # 패키지 설치
-npm install -g @jeeu-dev/tcross-mcp
+npm install -g tcross-mcp
 
 # 또는 로컬 개발용
 git clone https://github.com/jeeu-dev/tcross-mcp.git
@@ -44,7 +44,7 @@ npm run build
 2. `~/.cursor/mcp.json` 파일에 위의 JSON 설정 추가
 3. Cursor 재시작
 
-[Cursor에서 바로 연결하기](cursor://settings/mcp?config=%7B%22mcpServers%22%3A%7B%22tcross-integration-guide%22%3A%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40jeeu-dev%2Ftcross-mcp%40latest%22%5D%7D%7D%7D)
+[Cursor에서 바로 연결하기](cursor://settings/mcp?config=%7B%22mcpServers%22%3A%7B%22tcross-integration-guide%22%3A%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22tcross-mcp%40latest%22%5D%7D%7D%7D)
 
 ### VS Code
 
