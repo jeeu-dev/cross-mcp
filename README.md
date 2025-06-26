@@ -1,2 +1,2 @@
-# cross-developers
+# cross-mcp
 cross-developers
