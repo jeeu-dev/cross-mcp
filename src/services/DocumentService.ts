@@ -52,7 +52,11 @@ export class DocumentService {
     try {
       // Fetch main documentation pages based on actual CROSS docs structure
       const mainPages = [
+        // Getting Started
         '/docs/dev_getting-started',
+        '/docs/dev_testnet-faucet',
+        
+        // Smart Contract Development
         '/docs/sc_solidity',
         '/docs/sc_erc20-interface',
         '/docs/sc_sample-erc20-contract',
@@ -60,12 +64,15 @@ export class DocumentService {
         '/docs/sc_sample-erc1155-contract',
         '/docs/sc_deploy-foundry',
         '/docs/sc_deploy-hardhat',
+        
+        // Chain Information
         '/docs/ch_transactions',
         '/docs/ch_fee-delegation',
         '/docs/ch_fee-delegation-tx-type',
         '/docs/ch_checkpoint',
-        '/docs/ch_crossx-dex',
-        '/docs/sdkjs_installation',
+        
+        // JavaScript SDK (가장 중요한 실용 정보)
+        '/docs/sdkjs_installation',      // ⭐ 핵심: SDK 설치 가이드
         '/docs/sdkjs_hooks',
         '/docs/sdkjs_controllers',
         '/docs/sdkjs_connection',
@@ -73,13 +80,34 @@ export class DocumentService {
         '/docs/sdkjs_signature',
         '/docs/sdkjs_custom-data',
         '/docs/sdkjs_balance',
+        '/docs/sdkjs_connect-design-guide',
         '/docs/sdkjs_version-history',
+        
+        // Unity SDK
         '/docs/sdkuni_installation',
-        '/docs/testnet-faucet',
+        '/docs/sdkuni_connection',
+        '/docs/sdkuni_signature',
+        '/docs/sdkuni_token-transfer',
+        '/docs/sdkuni_custom-data',
+        '/docs/sdkuni_balance',
+        
+        // Node Operations
+        '/docs/node_endpoint-node',
+        '/docs/node_system-requirements',
+        '/docs/node_installation',
+        '/docs/node_configuration',
+        '/docs/node_rpc-endpoint',
+        '/docs/node_json-rpc',
+        
+        // CROSSx Platform
         '/docs/crossx_getting-started',
         '/docs/crossx_create-wallet',
+        '/docs/crossx_account-security',
         '/docs/crossx_bridge',
         '/docs/crossx_dex',
+        '/docs/crossx_main-service',
+        '/docs/crossx_order-system',
+        '/docs/crossx_trading-fee',
       ];
 
       for (const path of mainPages) {
@@ -114,10 +142,15 @@ export class DocumentService {
                    path.split('/').pop()?.replace(/-/g, ' ') || 'Untitled';
 
       // Extract main content
-      const content = this.extractContent($);
+      let content = this.extractContent($);
 
       // Determine category from path
       const category = this.getCategoryFromPath(path);
+
+      // Enhanced content for specific critical documents
+      if (path === '/docs/sdkjs_installation') {
+        content = this.enhanceSDKInstallationContent(content);
+      }
 
       const document: CrossDocument = {
         id: this.generateDocumentId(path),
@@ -143,7 +176,33 @@ export class DocumentService {
     const mainContent = $('main, .content, article, .documentation-content').first();
     
     if (mainContent.length > 0) {
-      return mainContent.text().trim();
+      let content = mainContent.text().trim();
+      
+      // Enhanced extraction for code blocks and installation steps
+      const codeBlocks = mainContent.find('pre, code');
+      if (codeBlocks.length > 0) {
+        content += '\n\n=== CODE EXAMPLES ===\n';
+        codeBlocks.each((i, elem) => {
+          const codeContent = $(elem).text().trim();
+          if (codeContent && codeContent.length > 10) {
+            content += `\nCode Block ${i + 1}:\n${codeContent}\n`;
+          }
+        });
+      }
+      
+      // Extract step-by-step instructions
+      const steps = mainContent.find('ol li, ul li');
+      if (steps.length > 0) {
+        content += '\n\n=== STEP-BY-STEP INSTRUCTIONS ===\n';
+        steps.each((i, elem) => {
+          const stepContent = $(elem).text().trim();
+          if (stepContent && stepContent.length > 5) {
+            content += `${i + 1}. ${stepContent}\n`;
+          }
+        });
+      }
+      
+      return content;
     }
 
     // Fallback to body content
@@ -298,5 +357,88 @@ export class DocumentService {
     } catch (error) {
       console.error(`Error fetching GitHub repository ${owner}/${repo}:`, error);
     }
+  }
+
+  private enhanceSDKInstallationContent(originalContent: string): string {
+    // Add comprehensive installation guide based on actual CROSS documentation
+    const enhancedContent = `${originalContent}
+
+=== ENHANCED INSTALLATION GUIDE ===
+
+📦 CROSS SDK JavaScript Installation Complete Guide
+
+1. PROJECT SETUP
+   - Ensure you have a JavaScript/React project ready
+   - Node.js version 16+ required
+
+2. CONFIGURE GITHUB PACKAGE REGISTRY
+   Create .npmrc file in your project root:
+   
+   registry=https://registry.npmjs.org/
+   @to-nexus:registry=https://package.cross-nexus.com/repository/cross-sdk-js/
+
+3. INSTALL CROSS SDK
+   Using npm:
+   npm install @to-nexus/sdk
+   
+   Using yarn:
+   yarn add @to-nexus/sdk
+   
+   Using pnpm:
+   pnpm add @to-nexus/sdk
+
+4. ENVIRONMENT VARIABLES SETUP
+   Create .env file in your project root:
+   
+   For Vite projects:
+   VITE_PROJECT_ID=your_project_id_here
+   VITE_NODE_ENV=production
+   
+   For Webpack projects:
+   PROJECT_ID=your_project_id_here
+   NODE_ENV=production
+   
+   IMPORTANT:
+   - projectId is REQUIRED (contact Cross team if you don't have one)
+   - nodeEnv must be 'production' for general users
+   - nodeEnv 'development' is only for CROSS chain developers
+
+5. SDK INITIALIZATION
+   Initialize in your app entry point:
+   
+   import { initCrossSdk } from '@to-nexus/sdk/react'
+   
+   const projectId = "your_project_id_here"
+   initCrossSdk(projectId)
+
+6. BASIC USAGE EXAMPLE
+   import { useCrossConnect } from '@to-nexus/sdk/react'
+   
+   function App() {
+     const { connect, disconnect, account } = useCrossConnect()
+     
+     return (
+       <div>
+         {account ? (
+           <button onClick={disconnect}>Disconnect</button>
+         ) : (
+           <button onClick={connect}>Connect Wallet</button>
+         )}
+       </div>
+     )
+   }
+
+7. COMMON ISSUES AND SOLUTIONS
+   - If package not found: Check .npmrc configuration
+   - If SDK initialization fails: Verify PROJECT_ID environment variable
+   - If connection issues: Check NODE_ENV is set to 'production'
+
+8. NEXT STEPS
+   - Read the Hooks documentation for advanced features
+   - Check Token Transfer guide for transaction handling
+   - Explore Connection guide for wallet integration patterns
+`;
+
+    return enhancedContent;
   }
 } 

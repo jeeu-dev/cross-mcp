@@ -117,25 +117,61 @@ export class SearchService {
   }
 
   async getPopularSearchTerms(): Promise<string[]> {
-    // Return some common search terms for CROSS development
+    // Return comprehensive search terms for CROSS development
     return [
-      'smart contract',
+      // Installation & Setup (가장 중요)
       'SDK installation',
+      'environment variables',
+      'npmrc configuration',
+      'project setup',
+      '.env file',
+      'VITE_PROJECT_ID',
+      'NODE_ENV',
+      'package registry',
+      '@to-nexus/sdk',
+      'npm install',
+      'yarn add',
+      'pnpm add',
+      
+      // Development
+      'smart contract',
       'token transfer',
-      'testnet faucet',
       'wallet connection',
+      'SDK hooks',
+      'initCrossSdk',
+      'useCrossConnect',
+      'connect wallet',
+      'signature',
+      'custom data',
+      'balance',
+      
+      // Blockchain
+      'testnet faucet',
       'fee delegation',
-      'bridge',
-      'DEX',
-      'ERC-20',
-      'deployment',
       'transactions',
+      'ERC-20',
+      'ERC-721',
+      'ERC-1155',
+      'deployment',
+      'Solidity',
+      'Foundry',
+      'Hardhat',
+      
+      // Platform
+      'bridge',
+      'CROSSx DEX',
+      'CROSSx wallet',
+      'dev mode',
       'getting started',
+      
+      // Code Examples
       'GitHub examples',
       'SDK examples',
       'sample code',
       'repository',
       'cross-sdk-js',
+      'cross-sdk-js-sample',
+      'code snippets',
     ];
   }
 

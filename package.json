@@ -1,6 +1,6 @@
 {
   "name": "tcross-mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MCP server providing AI tools with access to CROSS blockchain documentation and GitHub resources",
   "main": "dist/index.js",
   "type": "module",
