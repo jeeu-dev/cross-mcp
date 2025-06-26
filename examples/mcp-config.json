@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cross-integration-guide": {
+      "command": "npx",
+      "args": ["-y", "@cross/integration-guide-mcp@latest"]
+    }
+  }
+} 
