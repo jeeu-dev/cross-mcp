@@ -1,5 +1,5 @@
 {
-  "name": "@cross/integration-guide-mcp",
+  "name": "@jeeu-dev/cross-mcp",
   "version": "1.0.0",
   "description": "MCP server for CROSS blockchain integration guide",
   "main": "dist/index.js",

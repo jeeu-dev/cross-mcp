@@ -17,7 +17,7 @@ AI 도구의 MCP 설정에 다음 JSON을 추가하세요:
   "mcpServers": {
     "cross-integration-guide": {
       "command": "npx",
-      "args": ["-y", "@cross/integration-guide-mcp@latest"]
+      "args": ["-y", "@jeeu-dev/cross-mcp@latest"]
     }
   }
 }
@@ -91,6 +91,17 @@ CROSS 테스트넷 정보를 제공합니다.
 **매개변수:**
 - `type` (string, 선택): 정보 유형 (`faucet`, `setup`, `dev-mode`, `all`)
 
+### `get-github-resources` ⭐ **NEW!**
+CROSS GitHub 저장소와 예시 코드를 검색합니다.
+
+**매개변수:**
+- `type` (string, 선택): 리소스 유형 (`sdk`, `examples`, `all`)
+- `includeCode` (boolean, 선택): 코드 예시 포함 여부 (기본값: true)
+
+**지원하는 저장소:**
+- [to-nexus/cross-sdk-js](https://github.com/to-nexus/cross-sdk-js) - CROSS JavaScript SDK
+- [to-nexus/cross-sdk-js-sample](https://github.com/to-nexus/cross-sdk-js-sample) - SDK 사용 예시
+
 ## 📚 활용 예시
 
 ### 개발 시작하기
@@ -114,6 +125,13 @@ CROSS 테스트넷 정보를 제공합니다.
 ```
 "테스트넷 CROSS 코인을 받는 방법을 알려주세요"
 "CROSSx 앱에서 개발자 모드를 활성화하는 방법을 알려주세요"
+```
+
+### GitHub 예시 코드 활용 ⭐ **NEW!**
+```
+"cross-sdk-js 저장소의 설치 방법을 알려주세요"
+"GitHub에서 SDK 사용 예시를 찾아서 보여주세요"
+"실제 프로젝트에서 사용하는 CROSS SDK 코드 예시를 찾아주세요"
 ```
 
 ## 🔧 개발자 정보
