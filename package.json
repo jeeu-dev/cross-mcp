@@ -1,6 +1,6 @@
 {
   "name": "tcross-mcp",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "MCP server providing AI tools with access to CROSS blockchain documentation and GitHub resources",
   "main": "dist/index.js",
   "type": "module",
@@ -23,7 +23,7 @@
     "ai",
     "llm"
   ],
-  "author": "CROSS Team",
+  "author": "jeeu-dev",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
@@ -47,7 +47,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cross-developers/cross-mcp.git"
+    "url": "https://github.com/jeeu-dev/tcross-mcp.git"
+  },
+  "homepage": "https://github.com/jeeu-dev/tcross-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/jeeu-dev/tcross-mcp/issues"
   },
   "engines": {
     "node": ">=18.0.0"
